@@ -1,6 +1,6 @@
 # health-check-operator
 ---
-This `helm chart` installs the Native Health Check Operator for Kubernetes made by (Cloudders)[https://cloudders.com] and its CRDs.
+This `helm chart` installs the Native Health Check Operator for Kubernetes made by [Cloudders](https://cloudders.com) and its CRDs.
 
 _Note: this software is still in beta. Any issues can be reported to the Cloudders team at info[@]cloudders.com_
 ---

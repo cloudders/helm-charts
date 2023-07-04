@@ -1,0 +1,146 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: healthchecks.check.cloudders.com
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  labels:
+  {{- include "chart.labels" . | nindent 4 }}
+spec:
+  group: check.cloudders.com
+  names:
+    kind: HealthCheck
+    listKind: HealthCheckList
+    plural: healthchecks
+    singular: healthcheck
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: Target URL of the check
+      jsonPath: .spec.url
+      name: URL
+      type: string
+    - description: Test Interval of the Health Check
+      jsonPath: .spec.testInterval
+      name: Test Interval
+      type: integer
+    - description: Last run of the Health Check
+      jsonPath: .status.lastChecked
+      name: Last Checked
+      type: string
+    - description: Status of the host
+      jsonPath: .status.healthy
+      name: Healthy
+      type: boolean
+    - description: Response time of the target
+      jsonPath: .status.responseTime
+      name: Response time
+      type: string
+    - description: Search type
+      jsonPath: .status.searchType
+      name: Search type
+      type: string
+    - description: Keyword
+      jsonPath: .status.searchUsed
+      name: Search for
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: HealthCheck is the Schema for the Healthchecks API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          healthy:
+            description: HealthCheckStatus defines the observed state of HealthCheck
+            properties:
+              healthy:
+                type: boolean
+              lastChecked:
+                format: date-time
+                type: string
+              response:
+                type: string
+              responseTime:
+                description: ResponseBody string      `json:"responseBody,omitempty"`
+                type: string
+              searchType:
+                type: string
+              searchUsed:
+                type: string
+            required:
+            - healthy
+            - lastChecked
+            - response
+            type: object
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: HealthCheckSpec defines the desired state of HealthCheck
+            properties:
+              searchFor:
+                properties:
+                  expression:
+                    type: string
+                  string:
+                    type: string
+                type: object
+              sslCheck:
+                properties:
+                  expiration:
+                    description: Number of days before expiration to start reporting
+                      as unhealthy
+                    format: int32
+                    type: integer
+                required:
+                - expiration
+                type: object
+              testInterval:
+                type: integer
+              url:
+                type: string
+            required:
+            - testInterval
+            - url
+            type: object
+          status:
+            description: HealthCheckStatus defines the observed state of HealthCheck
+            properties:
+              healthy:
+                type: boolean
+              lastChecked:
+                format: date-time
+                type: string
+              response:
+                type: string
+              responseTime:
+                description: ResponseBody string      `json:"responseBody,omitempty"`
+                type: string
+              searchType:
+                type: string
+              searchUsed:
+                type: string
+            required:
+            - healthy
+            - lastChecked
+            - response
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

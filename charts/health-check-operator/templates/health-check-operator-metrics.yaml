@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "chart.fullname" . }}-health-check-operator-metrics
+  labels:
+    control-plane: controller-manager
+  {{- include "chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.healthCheckOperatorMetrics.type }}
+  selector:
+    control-plane: controller-manager
+  ports:
+	{{- .Values.healthCheckOperatorMetrics.ports | toYaml | nindent 2 -}}

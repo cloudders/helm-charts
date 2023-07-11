@@ -67,7 +67,24 @@ spec:
                   username:
                     type: string
                   webhook:
-                    type: string
+                    properties:
+                      secret:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                        type: array
+                      url:
+                        type: string
+                    type: object
+                required:
+                - webhook
                 type: object
               waitBeforeSend:
                 description: WaitBeforeSend represents the number of minutes to wait

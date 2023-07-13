@@ -87,6 +87,11 @@ spec:
     - "myFirstHealthCheck"
   slack:
     ## Slack webhook secret to be used
+    ## Or you can use Kubernetes secrets as well
+    ## webhook:
+    ##   secret:
+    ##     - name: my-slack-webhook
+    ##       key: workspace-office
     webhook: "https://..."
     ## Slack username to use
     username: "controller"

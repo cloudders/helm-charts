@@ -31,7 +31,7 @@ controllerManager:
         drop:
         - ALL
     image:
-      repository: public.ecr.aws/b3u3i0z7/health-check-operator
+      repository: public.ecr.aws/cloudders/health-check-operator
       tag: v0.2.0
     resources:
       limits:

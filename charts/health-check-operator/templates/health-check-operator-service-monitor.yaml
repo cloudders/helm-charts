@@ -1,11 +1,12 @@
+{{- if .Values.serviceMonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "chart.fullname" . }}-health-check-operator-service-monitor
+  name: {{ include "chart.fullname" . }}-service-monitor
   labels:
-    release: prometheus
+    release: {{ .Values.serviceMonitor.prometheusReleaseName }}
   {{- include "chart.labels" . | nindent 4 }}
-  namespace: monitoring
+  namespace: {{ .Values.serviceMonitor.namespace }}
 spec:
   endpoints:
   - path: /metrics
@@ -15,3 +16,4 @@ spec:
   selector:
     matchLabels:
       control-plane: controller-manager
+{{- end}}

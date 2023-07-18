@@ -57,3 +57,7 @@ metricsService:
     protocol: TCP
     targetPort: https
   type: ClusterIP
+serviceMonitor:
+  enabled: true
+  namespace: monitoring
+  prometheusReleaseName: prometheus

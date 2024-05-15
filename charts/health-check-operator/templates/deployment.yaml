@@ -44,8 +44,6 @@ spec:
                 values:
                 - amd64
                 - arm64
-                - ppc64le
-                - s390x
               - key: kubernetes.io/os
                 operator: In
                 values:
@@ -62,6 +60,9 @@ spec:
         - containerPort: 8443
           name: https
           protocol: TCP
+        - containerPort: 8082
+          name: rest
+          protocol: TCP          
         resources: {{- toYaml .Values.controllerManager.kubeRbacProxy.resources | nindent
           10 }}
         securityContext: {{- toYaml .Values.controllerManager.kubeRbacProxy.containerSecurityContext

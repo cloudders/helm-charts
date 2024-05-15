@@ -32,7 +32,7 @@ controllerManager:
         - ALL
     image:
       repository: public.ecr.aws/cloudders/health-check-operator
-      tag: v0.3.0 # or use latest tag
+      tag: v0.4.0
       imagePullPolicy: IfNotPresent
     resources:
       limits:
@@ -57,6 +57,13 @@ metricsService:
     protocol: TCP
     targetPort: https
   type: ClusterIP
+restService:
+  ports:
+  - name: rest
+    port: 8082
+    protocol: TCP
+    targetPort: rest
+  type: ClusterIP  
 serviceMonitor:
   enabled: true
   namespace: monitoring
